@@ -1,5 +1,5 @@
 CURRENT_DIR=$(shell pwd)
-DB_URL := "postgres://postgres:mubina2007@localhost:5432?postgres?sslmode=disable"
+DB_URL := "postgres://postgres:mubina2007@localhost:5432/postgres?sslmode=disable"
 
 build:
 	CGO_ENABLED=0 GOOS=linux go build -mod=vendor -a -installsuffix cgo -o ${CURRENT_DIR}/bin/${APP} ${APP_CMD_DIR}/main.go
