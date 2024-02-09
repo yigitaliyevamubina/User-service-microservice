@@ -1,29 +1,29 @@
 package storage
 
 import (
-    "github.com/jmoiron/sqlx"
-    "template-service3/storage/postgres"
-    "template-service3/storage/repo"
+	"github.com/jmoiron/sqlx"
+	"template-service3/storage/postgres"
+	"template-service3/storage/repo"
 )
 
-//IStorage ...
+// IStorage ...
 type IStorage interface {
-    User() repo.UserStorageI
+	User() repo.UserStorageI
 }
 
 type storagePg struct {
-    db         *sqlx.DB
-    userRepo   repo.UserStorageI
+	db       *sqlx.DB
+	userRepo repo.UserStorageI
 }
 
-//NewStoragePg ...
+// NewStoragePg ...
 func NewStoragePg(db *sqlx.DB) *storagePg {
-    return &storagePg{
-        db:         db,
-        userRepo:   postgres.NewUserRepo(db),
-    }
+	return &storagePg{
+		db:       db,
+		userRepo: postgres.NewUserRepo(db),
+	}
 }
 
 func (s storagePg) User() repo.UserStorageI {
-    return s.userRepo
+	return s.userRepo
 }
