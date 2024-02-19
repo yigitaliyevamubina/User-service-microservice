@@ -19,7 +19,6 @@ type UserService struct {
 	storage storage.IStorage
 	logger  l.Logger
 	client  grpcClient.IServiceManager
-	pb.UnimplementedUserServiceServer
 }
 
 // NewUserService ...
@@ -183,5 +182,3 @@ func (s *UserService) GetAllUsers(ctx context.Context, req *pb.GetAllUsersReques
 func (s *UserService) CheckField(ctx context.Context, req *pb.Request) (*pb.Response, error) {
 	return s.storage.User().CheckField(req)
 }
-
-func (s *UserService) mustEmbedUnimplementedUserServiceServer() {}
