@@ -77,7 +77,7 @@ SOURCES=(
 # import path of 'bar' in the generated code when 'foo.proto' is imported in
 # one of the sources.
 #
-# Note that the 1 listed here are all for testing purposes. All 1 to
+# Note that the protos listed here are all for testing purposes. All protos to
 # be used externally should have a go_package option (and they don't need to be
 # listed here).
 OPTS=Mgrpc/core/stats.proto=google.golang.org/grpc/interop/grpc_testing/core,\

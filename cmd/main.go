@@ -18,14 +18,14 @@ func main() {
 	log := logger.New(cfg.LogLevel, "template-service")
 	defer logger.Cleanup(log)
 
-	log.Info("main: sqlxConfig",
+	log.Info("main: sqlConfig",
 		logger.String("host", cfg.PostgresHost),
 		logger.Int("port", cfg.PostgresPort),
 		logger.String("database", cfg.PostgresDatabase))
 
 	connDB, _, err := db.ConnectToDB(cfg)
 	if err != nil {
-		log.Fatal("sqlx connection to postgres error", logger.Error(err))
+		log.Fatal("sql connection to postgres error", logger.Error(err))
 	}
 
 	client, err := grpcClient.New(cfg)

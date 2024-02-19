@@ -129,7 +129,7 @@ grep -v "(ST1000)" "${SC_OUT}" | grep -v "(SA1019)" | grep -v "(ST1003)" | not g
 # Exclude underscore checks for generated code.
 grep "(ST1003)" "${SC_OUT}" | not grep -v '\(.pb.go:\)\|\(code_string_test.go:\)\|\(grpc_testing_not_regenerate\)'
 
-# Error for duplicate imports not including grpc 1.
+# Error for duplicate imports not including grpc protos.
 grep "(ST1019)\|\(other import of\)" "${SC_OUT}" | not grep -Fv 'XXXXX PleaseIgnoreUnused
 channelz/grpc_channelz_v1"
 go-control-plane/envoy

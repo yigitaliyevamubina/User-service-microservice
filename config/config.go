@@ -6,14 +6,16 @@ import (
 
 // Config ...
 type Config struct {
-	Environment        string // develop, staging, production
-	PostgresHost       string
-	PostgresPort       int
-	PostgresDatabase   string
-	PostgresUser       string
-	PostgresPassword   string
-	LogLevel           string
-	RPCPort            string
+	Environment      string // develop, staging, production
+	PostgresHost     string
+	PostgresPort     int
+	PostgresDatabase string
+	PostgresUser     string
+	PostgresPassword string
+	LogLevel         string
+	RPCPort          string
+	//RedisHost          string
+	//RedisPort          int
 	PostServiceHost    string
 	PostServicePort    int
 	CommentServiceHost string
@@ -35,6 +37,9 @@ func Load() Config {
 	c.LogLevel = cast.ToString(getOrReturnDefault("LOG_LEVEL", "debug"))
 
 	c.RPCPort = cast.ToString(getOrReturnDefault("RPC_PORT", ":9090"))
+
+	//c.RedisHost = cast.ToString(getOrReturnDefault("REDIS_HOST", "localhost"))
+	//c.RedisPort = cast.ToInt(getOrReturnDefault("REDIS_PORT", 6379))
 
 	c.PostServiceHost = cast.ToString(getOrReturnDefault("POST_SERVICE_HOST", "localhost"))
 	c.PostServicePort = cast.ToInt(getOrReturnDefault("POST_SERVICE_HOST", "8080"))

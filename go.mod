@@ -4,6 +4,7 @@ go 1.21.6
 
 require (
 	github.com/golang/protobuf v1.5.3
+	github.com/gomodule/redigo v1.8.9
 	github.com/google/uuid v1.6.0
 	github.com/jmoiron/sqlx v1.3.5
 	github.com/lib/pq v1.10.9

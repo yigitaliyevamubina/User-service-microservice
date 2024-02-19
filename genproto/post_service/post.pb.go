@@ -52,10 +52,10 @@ func (Gender) EnumDescriptor() ([]byte, []int) {
 }
 
 type ReqPost struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Title                string   `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
-	ImageUrl             string   `protobuf:"bytes,3,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
-	OwnerId              string   `protobuf:"bytes,4,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
+	Title                string   `protobuf:"bytes,2,opt,name=title,proto3" json:"title"`
+	ImageUrl             string   `protobuf:"bytes,3,opt,name=image_url,json=imageUrl,proto3" json:"image_url"`
+	OwnerId              string   `protobuf:"bytes,4,opt,name=owner_id,json=ownerId,proto3" json:"owner_id"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -123,12 +123,12 @@ func (m *ReqPost) GetOwnerId() string {
 }
 
 type RespPost struct {
-	Id                   string     `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Title                string     `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
-	ImageUrl             string     `protobuf:"bytes,3,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
-	OwnerId              string     `protobuf:"bytes,4,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
-	Owner                *Owner     `protobuf:"bytes,5,opt,name=owner,proto3" json:"owner,omitempty"`
-	Comments             []*Comment `protobuf:"bytes,6,rep,name=comments,proto3" json:"comments,omitempty"`
+	Id                   string     `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
+	Title                string     `protobuf:"bytes,2,opt,name=title,proto3" json:"title"`
+	ImageUrl             string     `protobuf:"bytes,3,opt,name=image_url,json=imageUrl,proto3" json:"image_url"`
+	OwnerId              string     `protobuf:"bytes,4,opt,name=owner_id,json=ownerId,proto3" json:"owner_id"`
+	Owner                *Owner     `protobuf:"bytes,5,opt,name=owner,proto3" json:"owner"`
+	Comments             []*Comment `protobuf:"bytes,6,rep,name=comments,proto3" json:"comments"`
 	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
 	XXX_unrecognized     []byte     `json:"-"`
 	XXX_sizecache        int32      `json:"-"`
@@ -210,11 +210,13 @@ func (m *RespPost) GetComments() []*Comment {
 }
 
 type Owner struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	FirstName            string   `protobuf:"bytes,2,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
-	LastName             string   `protobuf:"bytes,3,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
-	Age                  int64    `protobuf:"varint,4,opt,name=age,proto3" json:"age,omitempty"`
-	Gender               Gender   `protobuf:"varint,5,opt,name=gender,proto3,enum=post.Gender" json:"gender,omitempty"`
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
+	FirstName            string   `protobuf:"bytes,2,opt,name=first_name,json=firstName,proto3" json:"first_name"`
+	LastName             string   `protobuf:"bytes,3,opt,name=last_name,json=lastName,proto3" json:"last_name"`
+	Age                  int64    `protobuf:"varint,4,opt,name=age,proto3" json:"age"`
+	Gender               Gender   `protobuf:"varint,5,opt,name=gender,proto3,enum=post.Gender" json:"gender"`
+	Email                string   `protobuf:"bytes,6,opt,name=email,proto3" json:"email"`
+	Password             string   `protobuf:"bytes,7,opt,name=password,proto3" json:"password"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -288,14 +290,28 @@ func (m *Owner) GetGender() Gender {
 	return Gender_male
 }
 
+func (m *Owner) GetEmail() string {
+	if m != nil {
+		return m.Email
+	}
+	return ""
+}
+
+func (m *Owner) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
 type Comment struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Content              string   `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
-	OwnerId              string   `protobuf:"bytes,3,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
-	PostId               string   `protobuf:"bytes,4,opt,name=post_id,json=postId,proto3" json:"post_id,omitempty"`
-	CreatedAt            string   `protobuf:"bytes,5,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt            string   `protobuf:"bytes,6,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
-	DeletedAt            string   `protobuf:"bytes,7,opt,name=deleted_at,json=deletedAt,proto3" json:"deleted_at,omitempty"`
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
+	Content              string   `protobuf:"bytes,2,opt,name=content,proto3" json:"content"`
+	OwnerId              string   `protobuf:"bytes,3,opt,name=owner_id,json=ownerId,proto3" json:"owner_id"`
+	PostId               string   `protobuf:"bytes,4,opt,name=post_id,json=postId,proto3" json:"post_id"`
+	CreatedAt            string   `protobuf:"bytes,5,opt,name=created_at,json=createdAt,proto3" json:"created_at"`
+	UpdatedAt            string   `protobuf:"bytes,6,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at"`
+	DeletedAt            string   `protobuf:"bytes,7,opt,name=deleted_at,json=deletedAt,proto3" json:"deleted_at"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -384,7 +400,7 @@ func (m *Comment) GetDeletedAt() string {
 }
 
 type GetPostId struct {
-	PostId               string   `protobuf:"bytes,1,opt,name=post_id,json=postId,proto3" json:"post_id,omitempty"`
+	PostId               string   `protobuf:"bytes,1,opt,name=post_id,json=postId,proto3" json:"post_id"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -431,7 +447,7 @@ func (m *GetPostId) GetPostId() string {
 }
 
 type GetOwnerId struct {
-	OwnerId              string   `protobuf:"bytes,1,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
+	OwnerId              string   `protobuf:"bytes,1,opt,name=owner_id,json=ownerId,proto3" json:"owner_id"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -478,7 +494,7 @@ func (m *GetOwnerId) GetOwnerId() string {
 }
 
 type OwnerPosts struct {
-	Posts                []*ReqPost `protobuf:"bytes,1,rep,name=posts,proto3" json:"posts,omitempty"`
+	Posts                []*ReqPost `protobuf:"bytes,1,rep,name=posts,proto3" json:"posts"`
 	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
 	XXX_unrecognized     []byte     `json:"-"`
 	XXX_sizecache        int32      `json:"-"`
@@ -538,38 +554,41 @@ func init() {
 func init() { proto.RegisterFile("post_service/post.proto", fileDescriptor_470ff939ef2b2b2f) }
 
 var fileDescriptor_470ff939ef2b2b2f = []byte{
-	// 496 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x93, 0xcd, 0x6e, 0xd3, 0x40,
-	0x10, 0xc7, 0xbb, 0x49, 0xfc, 0x35, 0x86, 0x60, 0x56, 0x48, 0x35, 0x45, 0x58, 0xc1, 0x54, 0x22,
-	0x80, 0x14, 0x44, 0x38, 0x70, 0x6e, 0x7b, 0x88, 0x72, 0xa1, 0x95, 0x11, 0x67, 0xcb, 0xc4, 0xd3,
-	0xc8, 0x92, 0x3f, 0x82, 0x77, 0x0b, 0xea, 0x33, 0xf0, 0x02, 0xdc, 0x79, 0x07, 0x9e, 0x80, 0x03,
-	0x47, 0x1e, 0x01, 0x85, 0x17, 0x41, 0x3b, 0xbb, 0x8e, 0x1c, 0xe5, 0xcc, 0x6d, 0xe6, 0xff, 0x1b,
-	0xaf, 0xff, 0x33, 0x3b, 0x0b, 0xc7, 0x9b, 0x46, 0xc8, 0x54, 0x60, 0xfb, 0xb9, 0x58, 0xe1, 0x2b,
-	0x95, 0xcc, 0x36, 0x6d, 0x23, 0x1b, 0x3e, 0x52, 0x71, 0xbc, 0x06, 0x27, 0xc1, 0x4f, 0x57, 0x8d,
-	0x90, 0x7c, 0x0c, 0x83, 0x22, 0x0f, 0xd9, 0x84, 0x4d, 0xbd, 0x64, 0x50, 0xe4, 0xfc, 0x01, 0x58,
-	0xb2, 0x90, 0x25, 0x86, 0x03, 0x92, 0x74, 0xc2, 0x1f, 0x81, 0x57, 0x54, 0xd9, 0x1a, 0xd3, 0x9b,
-	0xb6, 0x0c, 0x87, 0x44, 0x5c, 0x12, 0x3e, 0xb4, 0x25, 0x7f, 0x08, 0x6e, 0xf3, 0xa5, 0xc6, 0x36,
-	0x2d, 0xf2, 0x70, 0x44, 0xcc, 0xa1, 0x7c, 0x99, 0xc7, 0x3f, 0x18, 0xb8, 0x09, 0x8a, 0xcd, 0xff,
-	0xff, 0x15, 0x7f, 0x02, 0x16, 0x85, 0xa1, 0x35, 0x61, 0x53, 0x7f, 0xee, 0xcf, 0xa8, 0xeb, 0x4b,
-	0x25, 0x25, 0x9a, 0xf0, 0xe7, 0xe0, 0xae, 0x9a, 0xaa, 0xc2, 0x5a, 0x8a, 0xd0, 0x9e, 0x0c, 0xa7,
-	0xfe, 0xfc, 0xae, 0xae, 0xba, 0xd0, 0x6a, 0xb2, 0xc3, 0xf1, 0x57, 0x06, 0x16, 0x7d, 0x7b, 0xe0,
-	0xfa, 0x31, 0xc0, 0x75, 0xd1, 0x0a, 0x99, 0xd6, 0x59, 0xd5, 0x59, 0xf7, 0x48, 0x79, 0x97, 0x55,
-	0x64, 0xbf, 0xcc, 0x3a, 0x6a, 0xec, 0x2b, 0x81, 0x60, 0x00, 0xc3, 0x6c, 0x8d, 0xe4, 0x7c, 0x98,
-	0xa8, 0x90, 0x9f, 0x82, 0xbd, 0xc6, 0x3a, 0x37, 0xb6, 0xc7, 0xf3, 0x3b, 0xda, 0xd0, 0x82, 0xb4,
-	0xc4, 0xb0, 0xf8, 0x27, 0x03, 0xc7, 0x78, 0x3c, 0xf0, 0x13, 0x82, 0xb3, 0x6a, 0x6a, 0x89, 0xb5,
-	0x34, 0x66, 0xba, 0x74, 0x6f, 0x58, 0xc3, 0xfd, 0x61, 0x1d, 0x83, 0x43, 0x1b, 0xb2, 0x1b, 0xa3,
-	0xad, 0xd2, 0x25, 0x75, 0xb7, 0x6a, 0x31, 0x93, 0x98, 0xa7, 0x99, 0x24, 0x4f, 0x5e, 0xe2, 0x19,
-	0xe5, 0x4c, 0x2a, 0x7c, 0xb3, 0xc9, 0x3b, 0x6c, 0x6b, 0x6c, 0x14, 0x8d, 0x73, 0x2c, 0xd1, 0x60,
-	0x47, 0x63, 0xa3, 0x9c, 0xc9, 0xf8, 0x14, 0xbc, 0x05, 0xca, 0x2b, 0xfd, 0xa7, 0x9e, 0x05, 0xd6,
-	0xb7, 0x10, 0x3f, 0x03, 0x58, 0xa0, 0xbc, 0x34, 0x4e, 0xfb, 0x4d, 0xb0, 0xfd, 0xe5, 0x7a, 0x0d,
-	0x40, 0x55, 0xea, 0x40, 0xc1, 0x9f, 0x82, 0xa5, 0x0e, 0x10, 0x21, 0xeb, 0xdf, 0xac, 0x59, 0xf3,
-	0x44, 0xb3, 0x17, 0x11, 0xd8, 0x7a, 0xb4, 0xdc, 0x85, 0x51, 0x95, 0x95, 0x18, 0x1c, 0x71, 0x00,
-	0xfb, 0x1a, 0x29, 0x66, 0xf3, 0xef, 0x0c, 0x7c, 0x55, 0xff, 0x5e, 0xbf, 0x1c, 0xfe, 0x12, 0xe0,
-	0x82, 0x9a, 0xa7, 0x05, 0xde, 0x3f, 0xf3, 0x64, 0xdc, 0xa5, 0x66, 0xbf, 0x67, 0xe0, 0x9b, 0xf6,
-	0xce, 0x6f, 0x97, 0x39, 0xbf, 0xd7, 0x5d, 0xa5, 0xe9, 0xf8, 0xa0, 0xfe, 0x2d, 0xdc, 0x37, 0x50,
-	0x9c, 0xdf, 0x76, 0xfd, 0x06, 0xbb, 0xaf, 0x8c, 0x72, 0x12, 0xf4, 0x36, 0x59, 0x17, 0x07, 0xbf,
-	0xb6, 0x11, 0xfb, 0xbd, 0x8d, 0xd8, 0x9f, 0x6d, 0xc4, 0xbe, 0xfd, 0x8d, 0x8e, 0x3e, 0xda, 0xf4,
-	0xba, 0xdf, 0xfc, 0x0b, 0x00, 0x00, 0xff, 0xff, 0x46, 0x30, 0xcc, 0x96, 0xf8, 0x03, 0x00, 0x00,
+	// 541 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x54, 0x4d, 0x6f, 0x13, 0x31,
+	0x10, 0xad, 0x9b, 0x64, 0x3f, 0x26, 0x10, 0x82, 0x85, 0xd4, 0x25, 0x88, 0x28, 0x2c, 0x95, 0x08,
+	0x05, 0x05, 0x11, 0x0e, 0x9c, 0xdb, 0x22, 0x45, 0xb9, 0xd0, 0x6a, 0x51, 0xcf, 0x91, 0x89, 0xa7,
+	0xd1, 0x4a, 0xfb, 0x11, 0xd6, 0x2e, 0x55, 0xff, 0x09, 0xbf, 0x84, 0x1b, 0x37, 0x0e, 0x1c, 0xf9,
+	0x09, 0x28, 0xfc, 0x0e, 0x24, 0xe4, 0xb1, 0x37, 0x4a, 0x1a, 0xae, 0xdc, 0xfc, 0xde, 0x9b, 0xb5,
+	0xdf, 0xbc, 0xcc, 0x04, 0x0e, 0x96, 0xa5, 0xd2, 0x33, 0x85, 0xd5, 0xe7, 0x74, 0x8e, 0xaf, 0x0c,
+	0x18, 0x2d, 0xab, 0x52, 0x97, 0xbc, 0x69, 0xce, 0xf1, 0x02, 0xfc, 0x04, 0x3f, 0x9d, 0x97, 0x4a,
+	0xf3, 0x0e, 0xec, 0xa7, 0x32, 0x62, 0x03, 0x36, 0x0c, 0x93, 0xfd, 0x54, 0xf2, 0x07, 0xd0, 0xd2,
+	0xa9, 0xce, 0x30, 0xda, 0x27, 0xca, 0x02, 0xfe, 0x08, 0xc2, 0x34, 0x17, 0x0b, 0x9c, 0x5d, 0x55,
+	0x59, 0xd4, 0x20, 0x25, 0x20, 0xe2, 0xa2, 0xca, 0xf8, 0x43, 0x08, 0xca, 0xeb, 0x02, 0xab, 0x59,
+	0x2a, 0xa3, 0x26, 0x69, 0x3e, 0xe1, 0xa9, 0x8c, 0xbf, 0x32, 0x08, 0x12, 0x54, 0xcb, 0xff, 0xff,
+	0x14, 0x7f, 0x02, 0x2d, 0x3a, 0x46, 0xad, 0x01, 0x1b, 0xb6, 0xc7, 0xed, 0x11, 0x75, 0x7d, 0x66,
+	0xa8, 0xc4, 0x2a, 0xfc, 0x39, 0x04, 0xf3, 0x32, 0xcf, 0xb1, 0xd0, 0x2a, 0xf2, 0x06, 0x8d, 0x61,
+	0x7b, 0x7c, 0xd7, 0x56, 0x9d, 0x5a, 0x36, 0x59, 0xcb, 0xf1, 0x37, 0x06, 0x2d, 0xfa, 0x76, 0xc7,
+	0xf5, 0x63, 0x80, 0xcb, 0xb4, 0x52, 0x7a, 0x56, 0x88, 0xbc, 0xb6, 0x1e, 0x12, 0xf3, 0x5e, 0xe4,
+	0x64, 0x3f, 0x13, 0xb5, 0xea, 0xec, 0x1b, 0x82, 0xc4, 0x2e, 0x34, 0xc4, 0x02, 0xc9, 0x79, 0x23,
+	0x31, 0x47, 0x7e, 0x08, 0xde, 0x02, 0x0b, 0xe9, 0x6c, 0x77, 0xc6, 0x77, 0xac, 0xa1, 0x09, 0x71,
+	0x89, 0xd3, 0x4c, 0x52, 0x98, 0x8b, 0x34, 0x8b, 0x3c, 0x9b, 0x14, 0x01, 0xde, 0x83, 0x60, 0x29,
+	0x94, 0xba, 0x2e, 0x2b, 0x19, 0xf9, 0xf6, 0xa5, 0x1a, 0xc7, 0xdf, 0x19, 0xf8, 0xae, 0xab, 0x9d,
+	0x0e, 0x22, 0xf0, 0xe7, 0x65, 0xa1, 0xb1, 0xd0, 0xce, 0x7e, 0x0d, 0xb7, 0xe2, 0x6d, 0x6c, 0xc7,
+	0x7b, 0x00, 0x3e, 0xcd, 0xd4, 0x3a, 0x78, 0xcf, 0xc0, 0x29, 0xe5, 0x31, 0xaf, 0x50, 0x68, 0x94,
+	0x33, 0xa1, 0xa9, 0x8b, 0x30, 0x09, 0x1d, 0x73, 0xac, 0x8d, 0x7c, 0xb5, 0x94, 0xb5, 0x6c, 0xfd,
+	0x87, 0x8e, 0xb1, 0xb2, 0xc4, 0x0c, 0x9d, 0x6c, 0xbb, 0x08, 0x1d, 0x73, 0xac, 0xe3, 0x43, 0x08,
+	0x27, 0xa8, 0xcf, 0xed, 0x4b, 0x1b, 0x16, 0xd8, 0xa6, 0x85, 0xf8, 0x19, 0xc0, 0x04, 0xf5, 0x99,
+	0x73, 0xba, 0xd9, 0x04, 0xdb, 0x1e, 0xc7, 0xd7, 0x00, 0x54, 0x65, 0x2e, 0x54, 0xfc, 0x29, 0xb4,
+	0xcc, 0x05, 0x2a, 0x62, 0x9b, 0xb3, 0xe0, 0x16, 0x23, 0xb1, 0xda, 0x51, 0x1f, 0x3c, 0xfb, 0x63,
+	0xf0, 0x00, 0x9a, 0xb9, 0xc8, 0xb0, 0xbb, 0xc7, 0x01, 0xbc, 0x4b, 0xa4, 0x33, 0x1b, 0xff, 0x61,
+	0xd0, 0x36, 0xf5, 0x1f, 0xec, 0xae, 0xf1, 0x17, 0x00, 0xa7, 0xd4, 0x3c, 0x8d, 0xfc, 0xf6, 0x9d,
+	0xbd, 0x4e, 0x0d, 0xdd, 0x46, 0x1c, 0x01, 0x5c, 0x50, 0x14, 0xff, 0x2a, 0xde, 0x86, 0xfc, 0x25,
+	0xc0, 0x3b, 0xca, 0x85, 0xd0, 0xbd, 0x7a, 0x4e, 0x5c, 0x38, 0xb7, 0xab, 0x47, 0xd0, 0x76, 0xda,
+	0xc9, 0xcd, 0x54, 0xee, 0x96, 0xdf, 0x76, 0xf2, 0x16, 0xee, 0x3b, 0x51, 0x9d, 0xdc, 0xd4, 0x49,
+	0x76, 0xd7, 0x5f, 0x39, 0xa6, 0xd7, 0xdd, 0xd8, 0x2a, 0x5b, 0xdc, 0xfd, 0xb1, 0xea, 0xb3, 0x9f,
+	0xab, 0x3e, 0xfb, 0xb5, 0xea, 0xb3, 0x2f, 0xbf, 0xfb, 0x7b, 0x1f, 0x3d, 0xfa, 0xa7, 0x79, 0xf3,
+	0x37, 0x00, 0x00, 0xff, 0xff, 0x59, 0x37, 0x5c, 0x94, 0x84, 0x04, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -585,6 +604,8 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type PostServiceClient interface {
 	CreatePost(ctx context.Context, in *ReqPost, opts ...grpc.CallOption) (*RespPost, error)
+	UpdatePost(ctx context.Context, in *ReqPost, opts ...grpc.CallOption) (*ReqPost, error)
+	DeletePost(ctx context.Context, in *GetPostId, opts ...grpc.CallOption) (*ReqPost, error)
 	GetPostById(ctx context.Context, in *GetPostId, opts ...grpc.CallOption) (*RespPost, error)
 	GetPostsByOwnerId(ctx context.Context, in *GetOwnerId, opts ...grpc.CallOption) (*OwnerPosts, error)
 }
@@ -600,6 +621,24 @@ func NewPostServiceClient(cc *grpc.ClientConn) PostServiceClient {
 func (c *postServiceClient) CreatePost(ctx context.Context, in *ReqPost, opts ...grpc.CallOption) (*RespPost, error) {
 	out := new(RespPost)
 	err := c.cc.Invoke(ctx, "/post.PostService/CreatePost", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *postServiceClient) UpdatePost(ctx context.Context, in *ReqPost, opts ...grpc.CallOption) (*ReqPost, error) {
+	out := new(ReqPost)
+	err := c.cc.Invoke(ctx, "/post.PostService/UpdatePost", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *postServiceClient) DeletePost(ctx context.Context, in *GetPostId, opts ...grpc.CallOption) (*ReqPost, error) {
+	out := new(ReqPost)
+	err := c.cc.Invoke(ctx, "/post.PostService/DeletePost", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -627,6 +666,8 @@ func (c *postServiceClient) GetPostsByOwnerId(ctx context.Context, in *GetOwnerI
 // PostServiceServer is the server API for PostService service.
 type PostServiceServer interface {
 	CreatePost(context.Context, *ReqPost) (*RespPost, error)
+	UpdatePost(context.Context, *ReqPost) (*ReqPost, error)
+	DeletePost(context.Context, *GetPostId) (*ReqPost, error)
 	GetPostById(context.Context, *GetPostId) (*RespPost, error)
 	GetPostsByOwnerId(context.Context, *GetOwnerId) (*OwnerPosts, error)
 }
@@ -637,6 +678,12 @@ type UnimplementedPostServiceServer struct {
 
 func (*UnimplementedPostServiceServer) CreatePost(ctx context.Context, req *ReqPost) (*RespPost, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePost not implemented")
+}
+func (*UnimplementedPostServiceServer) UpdatePost(ctx context.Context, req *ReqPost) (*ReqPost, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdatePost not implemented")
+}
+func (*UnimplementedPostServiceServer) DeletePost(ctx context.Context, req *GetPostId) (*ReqPost, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeletePost not implemented")
 }
 func (*UnimplementedPostServiceServer) GetPostById(ctx context.Context, req *GetPostId) (*RespPost, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPostById not implemented")
@@ -663,6 +710,42 @@ func _PostService_CreatePost_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PostServiceServer).CreatePost(ctx, req.(*ReqPost))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PostService_UpdatePost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReqPost)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PostServiceServer).UpdatePost(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/post.PostService/UpdatePost",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PostServiceServer).UpdatePost(ctx, req.(*ReqPost))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PostService_DeletePost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPostId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PostServiceServer).DeletePost(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/post.PostService/DeletePost",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PostServiceServer).DeletePost(ctx, req.(*GetPostId))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -710,6 +793,14 @@ var _PostService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreatePost",
 			Handler:    _PostService_CreatePost_Handler,
+		},
+		{
+			MethodName: "UpdatePost",
+			Handler:    _PostService_UpdatePost_Handler,
+		},
+		{
+			MethodName: "DeletePost",
+			Handler:    _PostService_DeletePost_Handler,
 		},
 		{
 			MethodName: "GetPostById",
@@ -883,6 +974,20 @@ func (m *Owner) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	if m.XXX_unrecognized != nil {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.Password) > 0 {
+		i -= len(m.Password)
+		copy(dAtA[i:], m.Password)
+		i = encodeVarintPost(dAtA, i, uint64(len(m.Password)))
+		i--
+		dAtA[i] = 0x3a
+	}
+	if len(m.Email) > 0 {
+		i -= len(m.Email)
+		copy(dAtA[i:], m.Email)
+		i = encodeVarintPost(dAtA, i, uint64(len(m.Email)))
+		i--
+		dAtA[i] = 0x32
 	}
 	if m.Gender != 0 {
 		i = encodeVarintPost(dAtA, i, uint64(m.Gender))
@@ -1203,6 +1308,14 @@ func (m *Owner) Size() (n int) {
 	}
 	if m.Gender != 0 {
 		n += 1 + sovPost(uint64(m.Gender))
+	}
+	l = len(m.Email)
+	if l > 0 {
+		n += 1 + l + sovPost(uint64(l))
+	}
+	l = len(m.Password)
+	if l > 0 {
+		n += 1 + l + sovPost(uint64(l))
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -1897,6 +2010,70 @@ func (m *Owner) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Email", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowPost
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthPost
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthPost
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Email = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Password", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowPost
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthPost
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthPost
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Password = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipPost(dAtA[iNdEx:])

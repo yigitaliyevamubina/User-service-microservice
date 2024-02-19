@@ -45,7 +45,9 @@ func (s *UserService) DeleteUser(ctx context.Context, reqId *pb.GetUserId) (*pb.
 
 func (s *UserService) GetUserById(ctx context.Context, reqId *pb.GetUserId) (*pb.UserWithPostsAndComments, error) {
 	//posts -> post -> comments -> comment -> owner
+	fmt.Println(reqId)
 	user, err := s.storage.User().GetUserById(reqId)
+	fmt.Println(user)
 	if err != nil {
 		log.Fatal("cannot get user by id", err.Error())
 	}
@@ -176,6 +178,10 @@ func (s *UserService) GetAllUsers(ctx context.Context, req *pb.GetAllUsersReques
 	}
 
 	return users, nil
+}
+
+func (s *UserService) CheckField(ctx context.Context, req *pb.Request) (*pb.Response, error) {
+	return s.storage.User().CheckField(req)
 }
 
 func (s *UserService) mustEmbedUnimplementedUserServiceServer() {}

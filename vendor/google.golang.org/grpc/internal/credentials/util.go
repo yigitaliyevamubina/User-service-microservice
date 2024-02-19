@@ -24,7 +24,7 @@ import (
 
 const alpnProtoStrH2 = "h2"
 
-// AppendH2ToNextProtos appends h2 to next 1.
+// AppendH2ToNextProtos appends h2 to next protos.
 func AppendH2ToNextProtos(ps []string) []string {
 	for _, p := range ps {
 		if p == alpnProtoStrH2 {

@@ -2692,9 +2692,9 @@ func (x *MethodOptions) GetUninterpretedOption() []*UninterpretedOption {
 }
 
 // A message representing a option the parser does not recognize. This only
-// appears in options 1 created by the compiler::Parser class.
+// appears in options protos created by the compiler::Parser class.
 // DescriptorPool resolves these when building Descriptor objects. Therefore,
-// options 1 in descriptor objects (e.g. returned by Descriptor::options(),
+// options protos in descriptor objects (e.g. returned by Descriptor::options(),
 // or produced by Descriptor::CopyTo()) will never have UninterpretedOptions
 // in them.
 type UninterpretedOption struct {
