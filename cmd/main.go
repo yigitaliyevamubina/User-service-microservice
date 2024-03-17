@@ -6,6 +6,7 @@ import (
 	pb "template-service3/genproto/user_service"
 	"template-service3/pkg/db"
 	"template-service3/pkg/logger"
+	con "template-service3/queue/consumer"
 	"template-service3/service"
 	grpcClient "template-service3/service/grpc_client"
 
@@ -15,7 +16,7 @@ import (
 func main() {
 	cfg := config.Load()
 
-	log := logger.New(cfg.LogLevel, "template-service")
+	log := logger.New(cfg.LogLevel, "api-gateway")
 	defer logger.Cleanup(log)
 
 	log.Info("main: sqlConfig",
@@ -35,6 +36,18 @@ func main() {
 
 	userService := service.NewUserService(connDB, log, client)
 
+	//kafka\\
+	consumer, err := con.NewKafkaConsumer([]string{"kafka:9092"}, "test", "unique", userService)
+	if err != nil {
+		log.Fatal("error while creating a new kafka consumer", logger.Error(err))
+	}
+	defer consumer.Close()
+
+	go func() {
+		consumer.ConsumeMessages(con.ConsumeHandler)
+	}()
+	//kafka\\
+
 	lis, err := net.Listen("tcp", cfg.RPCPort)
 	if err != nil {
 		log.Fatal("Error while listening: %v", logger.Error(err))
@@ -48,4 +61,5 @@ func main() {
 	if err := s.Serve(lis); err != nil {
 		log.Fatal("Error while listening: %v", logger.Error(err))
 	}
+
 }

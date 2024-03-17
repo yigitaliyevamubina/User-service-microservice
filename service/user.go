@@ -31,6 +31,7 @@ func NewUserService(db *sqlx.DB, log l.Logger, client grpcClient.IServiceManager
 }
 
 func (s *UserService) Create(ctx context.Context, req *pb.User) (*pb.User, error) {
+	fmt.Println(s.client)
 	return s.storage.User().Create(req)
 }
 
@@ -108,6 +109,10 @@ func (s *UserService) GetUserById(ctx context.Context, reqId *pb.GetUserId) (*pb
 	return user, nil
 }
 
+func (s *UserService) GetUserByEmail(ctx context.Context, req *pb.GetUserEmailReq) (*pb.GetUserEmailResp, error) {
+	return s.storage.User().GetUserByEmail(req)
+}
+
 func (s *UserService) GetAllUsers(ctx context.Context, req *pb.GetAllUsersRequest) (*pb.AllUsers, error) {
 	users, err := s.storage.User().GetAllUsers(req)
 	if err != nil {
@@ -181,4 +186,12 @@ func (s *UserService) GetAllUsers(ctx context.Context, req *pb.GetAllUsersReques
 
 func (s *UserService) CheckField(ctx context.Context, req *pb.Request) (*pb.Response, error) {
 	return s.storage.User().CheckField(req)
+}
+
+func (s *UserService) UpdateRefreshToken(ctx context.Context, req *pb.RefreshTokenReq) (*pb.RefreshTokenResp, error) {
+	return s.storage.User().UpdateRefreshToken(req)
+}
+
+func (s *UserService) GetUserIdByRefreshToken(ctx context.Context, req *pb.RefreshReq) (*pb.RefreshResp, error) {
+	return s.storage.User().GetUserIdByRefreshToken(req)
 }

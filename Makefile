@@ -15,3 +15,6 @@ migrate-down:
 
 migrate-file:
 	migrate create -ext sql -dir migrations/ -seq create_users_table
+
+g:
+	go run cmd/main.go

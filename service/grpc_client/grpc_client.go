@@ -27,14 +27,14 @@ func New(cfg config.Config) (IServiceManager, error) {
 		fmt.Sprintf("%s:%d", cfg.PostServiceHost, cfg.PostServicePort),
 		grpc.WithInsecure())
 	if err != nil {
-		log.Fatal("error while dialing to the post service", logger.Error(err))
+		log.Fatal("error while 	dialing to the post service", logger.Error(err))
 	}
 
-	connComment, err := grpc.Dial(
-		fmt.Sprintf("%s:%d", cfg.CommentServiceHost, cfg.CommentServicePort),
-		grpc.WithInsecure())
-	if err != nil {
-		log.Fatal("error while dialing to the post service", logger.Error(err))
+	 connComment, err := grpc.Dial(
+	 	fmt.Sprintf("%s:%d", cfg.CommentServiceHost, cfg.CommentServicePort),
+	 	grpc.WithInsecure())
+	 if err != nil {
+	 	log.Fatal("error while dialing to the post service", logger.Error(err))
 	}
 
 	return &serviceManager{

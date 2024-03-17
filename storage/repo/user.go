@@ -14,8 +14,11 @@ import (
 type UserStorageI interface {
 	Create(*pb.User) (*pb.User, error)
 	GetUserById(*pb.GetUserId) (*pb.UserWithPostsAndComments, error)
+	GetUserByEmail(*pb.GetUserEmailReq) (*pb.GetUserEmailResp, error)
 	UpdateUser(*pb.User) (*pb.User, error)
 	DeleteUser(*pb.GetUserId) (*pb.User, error)
 	GetAllUsers(*pb.GetAllUsersRequest) (*pb.AllUsers, error)
 	CheckField(*pb.Request) (*pb.Response, error)
+	UpdateRefreshToken(*pb.RefreshTokenReq) (*pb.RefreshTokenResp, error)
+	GetUserIdByRefreshToken(*pb.RefreshReq) (*pb.RefreshResp, error)
 }
